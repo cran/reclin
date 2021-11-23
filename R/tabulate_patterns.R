@@ -64,9 +64,22 @@ tabulate_patterns_impl <- function(pairs, comparators, by) {
   for (i in seq_along(chunks)) {
     d <- slice_range(pairs, range = chunks[[i]], as_r = TRUE)
     for (col in by) d[[col]] <- comparators[[col]](d[[col]])
-    tab[[i]] <- d %>% group_by_(.dots = by) %>% summarise(n = n())
+    tab[[i]] <- d %>% group_by(across(all_of(by))) %>% summarise(n = n())
   }
   # Combine
-  bind_rows(tab) %>% group_by_(.dots = by) %>% summarise(n = sum(n)) %>%
+  tab <- bind_rows(tab) %>% group_by(across(all_of(by))) %>% summarise(n = sum(n)) %>%
     ungroup() %>% as.data.frame()
+  # Add patterns not present in dataset
+  complete <- TRUE
+  if (complete) {
+    possible_patterns <- lapply(tab[, by], function(x) {
+      u <- unique(x)
+      if (is.logical(u)) u <- unique(c(u, c(TRUE, FALSE)))
+      if (is.factor(x)) union(x, levels(x)) else u
+    })
+    possible_patterns <- do.call(expand.grid, possible_patterns)
+    tab <- merge(possible_patterns, tab, by = by, all.x = TRUE)
+    tab$n[is.na(tab$n)] <- 0
+  }
+  tab
 }

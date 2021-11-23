@@ -4,8 +4,13 @@
 \alias{problink_em}
 \title{Calculate EM-estimates of m- and u-probabilities}
 \usage{
-problink_em(patterns, mprobs0 = list(0.95), uprobs0 = list(0.02),
-  p0 = 0.05, tol = 1e-05)
+problink_em(
+  patterns,
+  mprobs0 = list(0.95),
+  uprobs0 = list(0.02),
+  p0 = 0.05,
+  tol = 1e-05
+)
 }
 \arguments{
 \item{patterns}{either a table of patterns (as output by 

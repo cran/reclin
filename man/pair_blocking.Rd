@@ -4,8 +4,14 @@
 \alias{pair_blocking}
 \title{Generate pairs using simple blocking}
 \usage{
-pair_blocking(x, y, blocking_var = NULL, large = TRUE, add_xy = TRUE,
-  chunk_size = 1e+07)
+pair_blocking(
+  x,
+  y,
+  blocking_var = NULL,
+  large = TRUE,
+  add_xy = TRUE,
+  chunk_size = 1e+07
+)
 }
 \arguments{
 \item{x}{first \code{data.frame}}

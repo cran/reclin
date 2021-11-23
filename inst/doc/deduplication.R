@@ -1,22 +1,22 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----results='hide',message=FALSE,warning=FALSE--------------------------
+## ----results='hide',message=FALSE,warning=FALSE-------------------------------
 library(reclin)
 library(dplyr)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 data("town_names")
 head(town_names)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 town_names$clean_name <- gsub("[^[:alnum:]]", "", town_names$name)
 town_names$clean_name <- gsub("0", "o", town_names$clean_name)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 p <- pair_blocking(town_names, town_names) %>% 
   filter_pairs_for_deduplication() %>%
   compare_pairs("clean_name", default_comparator = jaro_winkler()) %>% 
@@ -24,20 +24,20 @@ p <- pair_blocking(town_names, town_names) %>%
   select_threshold(0.88)
 head(p)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 res <- deduplicate_equivalence(p)
 head(res)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 length(unique(res$duplicate_groups))
 length(unique(res$duplicate_groups))/nrow(res)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 res <- res %>% group_by(duplicate_groups, official_name) %>% mutate(n = n()) %>% 
   group_by(duplicate_groups) %>%
   mutate(group_name = first(official_name, order_by = desc(n)))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 precision <- res %>% group_by(group_name) %>% 
   summarise(precision = sum(group_name == official_name)/n())
 
@@ -48,6 +48,6 @@ precision_recall <- res %>% group_by(official_name) %>%
 
 precision_recall
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 summarise(precision_recall, mean(recall), mean(precision))
 

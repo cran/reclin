@@ -4,7 +4,9 @@
 \name{town_names}
 \alias{town_names}
 \title{Spelling variations of a set of town names}
-\format{Data frames with 584 records and two columns.}
+\format{
+Data frames with 584 records and two columns.
+}
 \description{
 Contains spelling variations found in various files of a set of town/village
 names. Names were selected that contain 'rdam' or 'rdm'. The correct/official

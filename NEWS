@@ -1,5 +1,10 @@
 
 
+reclin version 0.1.2
+===============================================================================
+No external changed. Fixes bug in `tabulate_pairs`.
+
+
 reclin version 0.1.1
 ===============================================================================
 No external changes. In the examples and tests the garbage collector is run 

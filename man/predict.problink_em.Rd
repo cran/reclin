@@ -4,9 +4,15 @@
 \alias{predict.problink_em}
 \title{Calculate weights and probabilities for pairs}
 \usage{
-\method{predict}{problink_em}(object, pairs = newdata, newdata = NULL,
-  type = c("weights", "mpost", "probs", "all"), binary = FALSE, comparators,
-  ...)
+\method{predict}{problink_em}(
+  object,
+  pairs = newdata,
+  newdata = NULL,
+  type = c("weights", "mpost", "probs", "all"),
+  binary = FALSE,
+  comparators,
+  ...
+)
 }
 \arguments{
 \item{object}{an object of type \code{problink_em} as produced by 

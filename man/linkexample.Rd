@@ -5,7 +5,9 @@
 \alias{linkexample1}
 \alias{linkexample2}
 \title{Tiny example dataset for probabilistic linkage}
-\format{Two data frames with resp. 6 and 5 records and 6 columns.}
+\format{
+Two data frames with resp. 6 and 5 records and 6 columns.
+}
 \description{
 Contains fictional records of 7 persons.
 }
